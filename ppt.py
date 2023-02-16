@@ -34,4 +34,4 @@ width = height = Inches(5.5)
 pic = slide.shapes.add_picture(img_path, left, top, width, height)
 
 # save the presentation
-prs.save('automated_presentation.pptx')
+prs.save('letsgo.pptx')
