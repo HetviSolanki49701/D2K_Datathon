@@ -3,7 +3,6 @@ from pptx.util import Inches
 
 # create a new presentation
 prs = Presentation()
-
 # add a title slide
 title_slide_layout = prs.slide_layouts[1]
 slide = prs.slides.add_slide(title_slide_layout)
