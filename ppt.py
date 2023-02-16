@@ -9,8 +9,8 @@ title_slide_layout = prs.slide_layouts[0]
 slide = prs.slides.add_slide(title_slide_layout)
 title = slide.shapes.title
 subtitle = slide.placeholders[1]
-title.text = "Automated PowerPoint Presentation"
-subtitle.text = "Created using Python and python-pptx"
+title.text = "Research Paper Summary"
+subtitle.text = "Curated by Team MangoDB"
 
 # add a bullet slide
 bullet_slide_layout = prs.slide_layouts[1]
