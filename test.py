@@ -12,6 +12,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem.snowball import SnowballStemmer
 from PIL import Image
+from summarize import summary
+
 nltk.download("stopwords")
 nltk.download("punkt")
 
@@ -24,34 +26,27 @@ def extractText(file):
     text = ""
     for page in pdfPages:
         text += page
-    return text
-
-def getAbstract(text):
-    st = text.find("Abstract")
-    print(st)
-    end = text.find("Introduction")
-    print(end)
-    print(text[st:end])
+    return text.replace("\n", " ")
 
 
-def extractOCR(file):
-    pages = convert_from_path(file, 500)
+def pageSummary(file):
+    pdfFileObj = open(pdfFileName, "rb")
+    pdfPages = slate.PDF(pdfFileObj)
 
-    image_counter = 1
-    for page in pages:
-        filename = "page_" + str(image_counter) + ".jpg"
-        page.save(filename, "JPEG")
-        image_counter = image_counter + 1
+    text = []
+    for page in pdfPages:
+        text.append(summary(400, page))
 
-    limit = image_counter-1
-    text = ""
-    for i in range(1, limit + 1):
-        filename = "page_" + str(i) + ".jpg"
-        page = str(((pytesseract.image_to_string(Image.open(filename)))))
-        page = page.replace("-\n", "")
-        text += page
-        os.remove(filename)
-    return text
+    allSum = ". ".join(text)
+    print(summary(500, allSum))
+
+
+# def getAbstract(text):
+#     h1 = ['Abstract', '']
+#     print(st)
+#     end = text.find("Introduction")
+#     print(end)
+#     print(text[st:end].replace("\n", " "))
 
 
 def summarize(text):
@@ -104,8 +99,10 @@ def summarize(text):
     # This factor can be adjusted to reduce/expand the length of the summary
     summary = ""
     for sentence in sentences:
-            if sentence[:12] in sentenceValue and sentenceValue[sentence[:12]] > (3.0 * average):
-                summary += " " + " ".join(sentence.split())
+        if sentence[:12] in sentenceValue and sentenceValue[sentence[:12]] > (
+            3.0 * average
+        ):
+            summary += " " + " ".join(sentence.split())
 
     # Process the text in summary and write it to a new file
     summary = re.sub("’", "'", summary)
@@ -122,11 +119,8 @@ pdfFileName = fileName + ".pdf"
 option = input("Direct text extraction or OCR extraction? (text / OCR)\n")
 
 if option == "text":
-    text = extractText(pdfFileName)
-    summarize(text)
-    getAbstract(text)
-elif option == "OCR":
-    text = extractOCR(pdfFileName)
-    summarize(text)
+    # text = extractText(pdfFileName)
+    pageSummary(pdfFileName)
+    # getAbstract(text)
 else:
     print("Not a valid option!")

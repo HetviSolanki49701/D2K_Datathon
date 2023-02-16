@@ -34,22 +34,17 @@ fill.fore_color.rgb = RGBColor(0, 32, 96)
 title.text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 
 
-
 chart_data = CategoryChartData()
 chart_data.categories = chartTitle
-chart_data.add_series('Analysis of Sentences', (words))
-x, y, cx, cy = Inches(.5), Inches(.5), Inches(9), Inches(6.5)
-slide1.shapes.add_chart(
-    XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
-)
+chart_data.add_series("Analysis of Sentences", (words))
+x, y, cx, cy = Inches(0.5), Inches(0.5), Inches(9), Inches(6.5)
+slide1.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data)
 
 chart_data = CategoryChartData()
 chart_data.categories = chartTitle2
-chart_data.add_series('Analysis of Words', (sentences))
-x, y, cx, cy = Inches(.5), Inches(.5), Inches(9), Inches(6.5)
-slide2.shapes.add_chart(
-    XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
-)
+chart_data.add_series("Analysis of Words", (sentences))
+x, y, cx, cy = Inches(0.5), Inches(0.5), Inches(9), Inches(6.5)
+slide2.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data)
 
 
 # # add a bullet slide
@@ -74,4 +69,4 @@ slide2.shapes.add_chart(
 # pic = slide.shapes.add_picture(img_path, left, top, width, height)
 
 # save the presentation
-prs.save('test3.pptx')
+prs.save("summarized.pptx")
